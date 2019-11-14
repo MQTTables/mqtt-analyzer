@@ -1,6 +1,8 @@
-import sys
+import json
 import scapy.contrib.mqtt as mqtt
 from scapy.all import *
+
+import pprint
 
 packets = rdpcap(input())
 
