@@ -31,4 +31,5 @@ def to_json(packet):
                 for fvalue in fvalue_gen:
                     dl[]'''
         d[packet[i].name.lower().replace(' ', '_')] = dl
+    d['tcp']['options'] = []
     return d

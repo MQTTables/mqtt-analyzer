@@ -11,8 +11,6 @@ from net_utils import mqtt_type
 
 print(sys.argv)
 
-new = not os.path.exists(sys.argv[2])
-
 conn = sqlite3.connect(sys.argv[2] + '.db')
 c = conn.cursor()
 
@@ -25,12 +23,17 @@ c.execute(f'''CREATE TABLE IF NOT EXISTS {sys.argv[3]}(
               port_dst INTEGER NOT NULL,
               mqtt_type TEXT);''')
 
+c.execute(f'''CREATE TABLE IF NOT EXISTS {sys.argv[3]}_data(
+              id INTEGER PRIMARY KEY NOT NULL,
+              json TEXT);''')
+
 packets = rdpcap('mqtt_packets_tcpdump.pcap')
 
 
 time_ref = float(packets[0].time)
+i = 0
 
-for i, packet in enumerate(packets):
+for packet in packets:
     if packet.haslayer(mqtt.MQTT):
         jrepr = to_json(packet)
         jrepr['time']['time_abs'] = float(packet.time)
@@ -39,14 +42,21 @@ for i, packet in enumerate(packets):
         with open(f'json/p_{str(i)}.json', 'w') as write_file:
             json.dump(jrepr, write_file, indent=4, separators=(',', ': '))
         
+        mtype = mqtt_type(jrepr.keys())
+        
         entry = [
             jrepr['time']['time_rel'],
             jrepr['ip']['src'],
             jrepr['ip']['dst'],
             jrepr['tcp']['sport'],
             jrepr['tcp']['dport'],
-            mqtt_type(jrepr.keys())
+            mtype
         ]
         c.execute(f'''INSERT INTO {sys.argv[3]} (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
                       VALUES(?, ?, ?, ?, ?, ?)''', entry)
+        if mtype:
+            c.execute(f'''INSERT INTO {sys.argv[3]}_data (id, json)
+                        VALUES(?, ?)''', [i, json.dumps(jrepr)])
+
         conn.commit()
+        i += 1
