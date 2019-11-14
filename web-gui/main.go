@@ -16,6 +16,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	mux := http.NewServeMux()
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	mux.HandleFunc("/", index)
 	serv := &http.Server{
 		Addr:    ":8080",
