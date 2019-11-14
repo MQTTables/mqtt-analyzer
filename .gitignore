@@ -1,2 +1,4 @@
 *.pcap
 *.cap
+wget-log
+__pycache__
