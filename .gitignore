@@ -1,4 +1,5 @@
 *.pcap
 *.cap
 wget-log
-__pycache__
+__pycache__/*
+json/*
