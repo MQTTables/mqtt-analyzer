@@ -1,16 +1,0 @@
---2019-11-14 12:00:50--  https://vk.com/away.php?to=https%3A%2F%2Fgithub.com%2Fpradeesi%2FMQTT-Wireshark-Capture%2Fraw%2Fmaster%2Fmqtt_packets_tcpdump.pcap
-Resolving vk.com (vk.com)... 87.240.190.67, 87.240.190.72, 93.186.225.208, ...
-Connecting to vk.com (vk.com)|87.240.190.67|:443... connected.
-HTTP request sent, awaiting response... 302 Found
-Location: https://away.vk.com/away.php [following]
---2019-11-14 12:00:50--  https://away.vk.com/away.php
-Resolving away.vk.com (away.vk.com)... 87.240.190.67, 87.240.139.194, 87.240.190.72, ...
-Connecting to away.vk.com (away.vk.com)|87.240.190.67|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 608 [text/html]
-Saving to: ‘away.php?to=https:%2F%2Fgithub.com%2Fpradeesi%2FMQTT-Wireshark-Capture%2Fraw%2Fmaster%2Fmqtt_packets_tcpdump.pcap’
-
-          away.php?   0%[                    ]       0  --.-KB/s               away.php?to=https:% 100%[===================>]     608  --.-KB/s    in 0s      
-
-2019-11-14 12:00:51 (29,1 MB/s) - ‘away.php?to=https:%2F%2Fgithub.com%2Fpradeesi%2FMQTT-Wireshark-Capture%2Fraw%2Fmaster%2Fmqtt_packets_tcpdump.pcap’ saved [608/608]
-
