@@ -6,6 +6,7 @@ from scapy.fields import StrField, ConditionalField, Emph, PacketListField, \
 
 def to_json(packet):
     d = {}
+    d['time'] = {}
     for i in range(100):
         try:
             layer = packet[i]
@@ -24,7 +25,7 @@ def to_json(packet):
                 fvalue = fvalue.decode()
 
             dl[f.name] = fvalue
-            print(f'{f.name}: {fvalue}')
+            # print(f'{f.name}: {fvalue}')
             '''if isinstance(fvalue, Packet) or (f.islist and f.holds_packets and isinstance(fvalue, list)):
                 fvalue_gen = SetGen(fvalue, iterpacket=0)
                 for fvalue in fvalue_gen:

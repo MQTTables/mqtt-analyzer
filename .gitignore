@@ -1,5 +1,6 @@
 *.pcap
 *.cap
+*.db
 wget-log
 __pycache__/*
 json/*
