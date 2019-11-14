@@ -4,3 +4,4 @@
 wget-log
 __pycache__/*
 json/*
+server
