@@ -4,10 +4,9 @@ import os.path
 import sqlite3
 import scapy.contrib.mqtt as mqtt
 from scapy.all import *
-from net_json import to_json
 from pprint import pprint
 
-from net_utils import mqtt_type
+from net_json import to_json, mqtt_type
 
 print(sys.argv)
 
@@ -27,7 +26,7 @@ c.execute(f'''CREATE TABLE IF NOT EXISTS {sys.argv[3]}_data(
               id INTEGER PRIMARY KEY NOT NULL,
               json TEXT);''')
 
-packets = rdpcap('mqtt_packets_tcpdump.pcap')
+packets = rdpcap(sys.argv[1])
 
 
 time_ref = float(packets[0].time)
