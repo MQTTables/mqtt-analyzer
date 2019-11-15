@@ -120,3 +120,7 @@ body {
 	color: #666;
 	text-shadow: none;
 }
+
+.pkg-info {
+	height: 300px;
+}
