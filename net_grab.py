@@ -1,4 +1,4 @@
-import scapy
+from scapy.all import sniff
 
 import net_mqtt
 
@@ -11,5 +11,5 @@ class Grabber:
 
     def start(self):
         while True:
-            packet = scapy.sniff(count=1)[0]
+            packet = sniff(count=1)[0]
             self.db.add_packets([packet])
