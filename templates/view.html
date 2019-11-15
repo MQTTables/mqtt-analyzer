@@ -1,0 +1,136 @@
+{{ define "view"}}
+
+{{ template "header"}}
+
+<div class="container-fluid bg-dark h-100">
+	<div class="row h-100">
+		<!-- Sidebar -->
+		<nav class="col-md-2 d-none d-md-block bg-dark sidebar shadow">
+			<div class="sidebar-sticky bg-dark shadow">
+				<ul class="nav flex-column navbar-dark">
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+						<span>FILTER BY</span>
+						<a class="d-flex align-items-center text-muted" href="#">
+							<span data-feather="plus-circle"></span>
+						</a>
+					</h6>
+					<li class="nav-item"><a href="#" class="nav-link text-light">Source</a></li>
+					<li class="nav-item"><a href="#" class="nav-link text-light">Destination</a></li>
+					<li class="nav-item"><a href="#" class="nav-link text-light">Package type</a></li>
+					<li class="nav-item"><a href="#" class="nav-link text-light">Package content</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Packet list -->
+		<div class="container-fluid">
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 d-done d-md-block">
+				<br>
+				<div class="d-flex flex-row">
+					<input class="form-control" type="text" placeholder="Data search">
+					<button type="button" class="btn btn-dark">Search</button>
+				</div>
+			</main>
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 d-done d-md-block h-50 overflow-auto">
+				<div class="table-responsive">
+					<table class="table table-striped table-dark table-borderless table-hover">
+						<thead>
+							<tr>
+								<th>Time</th>
+								<th>Source</th>
+								<th>Destination</th>
+								<th>Package type</th>
+								<th>Length</th>
+								<th>Info</th>
+							</tr>
+						</thead>
+						<tbody id="packetsRoot">
+							<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>25:68:61</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>68</td>
+								<td>Data request</td>
+							</tr>
+							<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>31:12:76</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>72</td>
+								<td>Data request</td>
+							</tr>
+								<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>27:59:13</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>60</td>
+								<td>Data request</td>
+							</tr>
+								<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>27:59:13</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>60</td>
+								<td>Data request</td>
+							</tr>
+								<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>27:59:13</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>60</td>
+								<td>Data request</td>
+							</tr>
+								<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>27:59:13</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>60</td>
+								<td>Data request</td>
+							</tr>
+								<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>27:59:13</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>60</td>
+								<td>Data request</td>
+							</tr>
+								<tr data-toggle="collapse" href="#collapse-info" role="button" aria-expanded="false" aria-controls="collapse-info">
+								<td>27:59:13</td>
+								<td>127.0.0.1</td>
+								<td>94.103.83.68</td>
+								<td>default</td>
+								<td>60</td>
+								<td>Data request</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</main>
+			<!-- Packet info -->
+			<main role="main" class="col-md-15 ml-sm-auto col-lg-10 px-12 d-done d-md-block">
+				<div class="collapse pkg-info shadow-lg border p-4 text-light" id="collapse-info">
+					<p class="display-4">Package info</p>
+					<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab maxime 
+						facere nesciunt sed eligendi ducimus ratione nulla vel illum, 
+						qui corporis pariatur unde reiciendis adipisci similique 
+						praesentium repellendus quis? Tenetur?</p>
+					<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab maxime 
+						facere nesciunt sed eligendi ducimus ratione nulla vel illum, 
+						qui corporis pariatur unde reiciendis adipisci similique 
+						praesentium repellendus quis? Tenetur?</p>
+				</div>
+			</main>
+		</div>
+	</div>
+</div>
+
+{{ template "footer"}}
+
+{{ end }}

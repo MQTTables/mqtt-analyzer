@@ -9,6 +9,16 @@ import (
 	"os"
 )
 
+type packet struct {
+	id         int
+	timeRel    float32
+	ipSrc      string
+	ipDest     string
+	portSrc    string
+	portDest   string
+	packetType string
+}
+
 //index - Handles main page
 func index(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseGlob("templates/*.html")
@@ -17,6 +27,16 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	tmpl.ExecuteTemplate(w, "index", nil)
+}
+
+//index - Handles view page
+func view(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseGlob("templates/*.html")
+	if err != nil {
+		log.Fatalf("Template parsing error: %s", err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "view", nil)
 }
 
 //loadAll - Load packets list from db
