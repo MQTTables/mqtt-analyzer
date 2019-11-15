@@ -12,8 +12,9 @@ var db *sql.DB
 
 //main - Main function
 func main() {
+	var err error
 	//Open db
-	db, err := sql.Open("sqlite3", "packets.db")
+	db, err = sql.Open("sqlite3", "packets.db")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,11 +26,6 @@ func main() {
 	);`)
 	if err != nil {
 		log.Fatal(err)
-	}
-
-	_, err = db.Exec("insert into uploads (file_id, file_name) values ('test', 'n1')")
-	if err != nil {
-		panic(err)
 	}
 
 	//Mux and handlers

@@ -21,11 +21,6 @@ type packet struct {
 
 //index - Handles main page
 func index(w http.ResponseWriter, r *http.Request) {
-	_, err := db.Exec("insert into uploads (file_id, file_name) values ('test', 'n2')")
-	if err != nil {
-		panic(err)
-	}
-
 	tmpl, err := template.ParseGlob("templates/*.html")
 	if err != nil {
 		log.Fatalf("Template parsing error: %s", err)
@@ -64,7 +59,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 
 	fileID := md5sum(header.Filename)
-	// fileName := header.Filename
+	fileName := header.Filename
 
 	out, err := os.Create(fmt.Sprintf(".cache/%s", fileID))
 	if err != nil {
@@ -78,7 +73,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Server io error: %s", err)
 	}
 
-	_, err = db.Exec("") //insert into uploads (file_id, file_name) values ('iPhone X', $1)", "Apple")
+	_, err = db.Exec("insert into uploads (file_id, file_name) values ($1, $2)", fileID, fileName)
 	if err != nil {
 		panic(err)
 	}
