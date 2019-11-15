@@ -16,7 +16,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Template parsing error: %s", err)
 		return
 	}
-	tmpl.Execute(w, nil)
+	tmpl.ExecuteTemplate(w, "index", nil)
 }
 
 //loadAll - Load packets list from db
