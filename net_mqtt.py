@@ -41,21 +41,18 @@ for packet in packets:
         with open(f'json/p_{str(i)}.json', 'w') as write_file:
             json.dump(jrepr, write_file, indent=4, separators=(',', ': '))
         
-        mtype = mqtt_type(jrepr.keys())
-        
         entry = [
             jrepr['time']['time_rel'],
             jrepr['ip']['src'],
             jrepr['ip']['dst'],
             jrepr['tcp']['sport'],
             jrepr['tcp']['dport'],
-            mtype
+            mqtt_type(jrepr['mqtt_fixed_header']['type'])
         ]
         c.execute(f'''INSERT INTO {sys.argv[3]} (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
                       VALUES(?, ?, ?, ?, ?, ?)''', entry)
-        if mtype:
-            c.execute(f'''INSERT INTO {sys.argv[3]}_data (id, json)
-                        VALUES(?, ?)''', [i, json.dumps(jrepr)])
+        c.execute(f'''INSERT INTO {sys.argv[3]}_data (id, json)
+            VALUES(?, ?)''', [i, json.dumps(jrepr)])
 
         conn.commit()
         i += 1
