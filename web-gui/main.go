@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -12,6 +15,40 @@ func index(w http.ResponseWriter, r *http.Request) {
 		log.Fatalf("Template parsing error: %s", err)
 	}
 	tmpl.Execute(w, nil)
+}
+
+func loadInfo(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func loadPackage(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func upload(w http.ResponseWriter, r *http.Request) {
+	upload, header, err := r.FormFile("file")
+	if err != nil {
+		fmt.Fprintf(w, "File upload unsuccsessful: %s", err)
+		return
+	}
+	defer upload.Close()
+
+	file, err := os.Create(header.Filename)
+	if err != nil {
+		fmt.Fprintf(w, "Unable to create the file for writing. %s", err)
+		return
+	}
+
+	defer file.Close()
+	_, err = io.Copy(file, file)
+	if err != nil {
+		fmt.Fprintf(w, "Server file write error %s", err)
+		return
+	}
+}
+
+func readParams(w http.ResponseWriter, r *http.Request) {
+
 }
 
 func main() {
