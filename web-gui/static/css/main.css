@@ -122,5 +122,6 @@ body {
 }
 
 .pkg-info {
-	height: 300px;
+	height: 200px;
+	overflow-y: scroll;
 }
