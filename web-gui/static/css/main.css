@@ -110,3 +110,13 @@ body {
 .title {
 	color: white;
 }
+
+.close {
+	color: #eeeeee;
+	text-shadow: none;
+}
+
+.close:hover {
+	color: #666;
+	text-shadow: none;
+}

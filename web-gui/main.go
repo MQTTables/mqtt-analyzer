@@ -26,25 +26,25 @@ func loadPackage(w http.ResponseWriter, r *http.Request) {
 }
 
 func upload(w http.ResponseWriter, r *http.Request) {
-	upload, header, err := r.FormFile("file")
+	file, header, err := r.FormFile("file")
 	if err != nil {
-		fmt.Fprintf(w, "File upload unsuccsessful: %s", err)
+		fmt.Fprintf(w, "Upload error: %s", err)
 		return
 	}
-	defer upload.Close()
-
-	file, err := os.Create(header.Filename)
-	if err != nil {
-		fmt.Fprintf(w, "Unable to create the file for writing. %s", err)
-		return
-	}
-
 	defer file.Close()
-	_, err = io.Copy(file, file)
+
+	out, err := os.Create(header.Filename)
 	if err != nil {
-		fmt.Fprintf(w, "Server file write error %s", err)
+		fmt.Fprintf(w, "Unable to create the file for writing. Error: %s", err)
 		return
 	}
+
+	defer out.Close()
+	_, err = io.Copy(out, file)
+	if err != nil {
+		fmt.Fprintf(w, "Server io error: %s", err)
+	}
+	http.Redirect(w, r, "/", 301)
 }
 
 func readParams(w http.ResponseWriter, r *http.Request) {
@@ -55,6 +55,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	mux.HandleFunc("/", index)
+	mux.HandleFunc("/upload", upload)
 	serv := &http.Server{
 		Addr:    ":8080",
 		Handler: mux,
