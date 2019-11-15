@@ -1,0 +1,10 @@
+{{ range .Packets}}
+<tr>
+    <td>{{ .Time }}</td>
+    <td>{{ .Source }}</td>
+    <td>{{ .Dest }}</td>
+    <td>{{ .PkgType }}</td>
+    <td>{{ .Length }}</td>
+    <td>{{ .Info }}</td>
+</tr>
+{{ end }}
