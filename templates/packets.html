@@ -1,10 +1,10 @@
-{{ range .Packets}}
+{{ range .packets}}
 <tr>
-    <td>{{ .Time }}</td>
-    <td>{{ .Source }}</td>
-    <td>{{ .Dest }}</td>
-    <td>{{ .PkgType }}</td>
-    <td>{{ .Length }}</td>
-    <td>{{ .Info }}</td>
+    <td>{{ .id }}</td>
+    <td>{{ .timeRel }}</td>
+    <td>{{ .ipSrc }}:{{ .portSrc }}</td>
+    <td>{{ .ipDest }}:{{ .portDest }}</td>
+    <td>{{ .packetType }}</td>
+    <td>None</td>
 </tr>
 {{ end }}

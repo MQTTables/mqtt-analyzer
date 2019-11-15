@@ -22,7 +22,7 @@ class Database:
         self.conn = sqlite3.connect(db_name + '.db')
         self.c = self.conn.cursor()
 
-        self.c.execute(f'''CREATE TABLE IF NOT EXISTS {t_name}(
+        self.c.execute(f'''CREATE TABLE IF NOT EXISTS "{t_name}" (
                     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     time_rel REAL NOT NULL,
                     ip_src TEXT NOT NULL,
@@ -31,7 +31,7 @@ class Database:
                     port_dst INTEGER NOT NULL,
                     mqtt_type TEXT);''')
 
-        self.c.execute(f'''CREATE TABLE IF NOT EXISTS {t_name}_data(
+        self.c.execute(f'''CREATE TABLE IF NOT EXISTS "{t_name}_data" (
                     id INTEGER PRIMARY KEY NOT NULL,
                     json TEXT);''')
 
@@ -56,9 +56,9 @@ class Database:
                     jrepr['tcp']['dport'],
                     mqtt_type(jrepr['mqtt_fixed_header']['type'])
                 ]
-                self.c.execute(f'''INSERT INTO {self.t_name} (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
+                self.c.execute(f'''INSERT INTO "{self.t_name}"" (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
                             VALUES(?, ?, ?, ?, ?, ?)''', entry)
-                self.c.execute(f'''INSERT INTO {self.t_name}_data (id, json)
+                self.c.execute(f'''INSERT INTO "{self.t_name}_data" (id, json)
                     VALUES(?, ?)''', [i, json.dumps(jrepr)])
 
                 self.conn.commit()

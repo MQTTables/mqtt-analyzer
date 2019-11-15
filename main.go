@@ -20,6 +20,7 @@ func main() {
 	}
 	defer db.Close()
 
+	//Create uploads table
 	_, err = db.Exec(`create table if not exists uploads (
 		file_id text,
 		file_name text
