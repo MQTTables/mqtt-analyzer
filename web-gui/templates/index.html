@@ -3,22 +3,31 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Dashboard Template · Bootstrap</title>
+		<title>MQTT Analyzer</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+		<link href="static/css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- Custom styles -->
-		<link href="../static/css/main.css" rel="stylesheet">
+		<link href="static/css/main.css" rel="stylesheet">
 	</head>
 	<body>
 		<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 	<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">MQTT Analyzer</a>
 	<div class="btn-toolbar mb-2 mb-md-0">
 			<div class="btn-group mr-2">
-				<button type="button" class="btn btn-sm btn-light">Open file</button>
-				<button type="button" class="btn btn-sm btn-danger">Close session</button>
+				<button type="button" class="btn btn-sm btn-outline-light mr-1 dropdown-toggle rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Open file</button>
+				<button type="button" class="btn btn-sm btn-outline-danger rounded">Close session</button>
+				<div class="dropdown-menu dropdown-menu-right m-1" aria-labelledby="dropdownMenuButton">
+					<form class action="/receive" method="post" enctype="multipart/form-data">
+						<label for="file">Filename:</label>
+						<input type="file" name="file" id="file">
+						<br>
+						<input type="submit" name="submit" value="Submit">
+					</form>
+				</div>
 			</div>
+
 		</div>
 </nav>
 
@@ -87,5 +96,7 @@
 	</div>
 </div>
 	<!-- Loading javascript -->
-	<script src="../static/js/jquery-3.4.1.slim.min.js"></script>
+	<script src="static/js/jquery-3.4.1.slim.min.js"></script>
+	<script src="static/js/popper.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
 </html>
