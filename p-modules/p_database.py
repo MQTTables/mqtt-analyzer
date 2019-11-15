@@ -56,7 +56,7 @@ class Database:
                     jrepr['tcp']['dport'],
                     mqtt_type(jrepr['mqtt_fixed_header']['type'])
                 ]
-                self.c.execute(f'''INSERT INTO "{self.t_name}"" (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
+                self.c.execute(f'''INSERT INTO "{self.t_name}" (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
                             VALUES(?, ?, ?, ?, ?, ?)''', entry)
                 self.c.execute(f'''INSERT INTO "{self.t_name}_data" (id, json)
                     VALUES(?, ?)''', [i, json.dumps(jrepr)])
