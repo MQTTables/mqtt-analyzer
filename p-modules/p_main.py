@@ -20,7 +20,7 @@ args = parser.parse_args()
 print(args)
 if args.mode == 'pcap':
     db = p_database.Database(args.db_name, args.t_name)
-    db.add_packets(rdpcap(args.t_name))
+    db.add_packets(rdpcap(args.t_name + '.pcap'))
 elif args.mode == 'grab':
     gr = p_grabber.Grabber(args.db_name, args.t_name)
     gr.start()
