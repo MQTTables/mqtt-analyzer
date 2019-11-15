@@ -1,8 +1,14 @@
+'''
+Project: MQTT Traffic Analyzer
+Module: Packeda
+- Main script; entry point for external calls
+'''
+
 import argparse
 from scapy.all import rdpcap
 
-import net_mqtt
-import net_grab
+import p_database
+import p_grabber
 
 
 parser = argparse.ArgumentParser(description='Process MQTT packets')
@@ -14,8 +20,8 @@ parser.add_argument('-f', '--file', type=str, required=False, help='.pcap file p
 args = parser.parse_args()
 print(args)
 if args.mode == 'pcap':
-    db = net_mqtt.Database(args.db_name, args.t_name)
+    db = p_database.Database(args.db_name, args.t_name)
     db.add_packets(rdpcap(args.file))
 elif args.mode == 'grab':
-    gr = net_grab.Grabber(args.db_name, args.t_name)
+    gr = p_grabber.Grabber(args.db_name, args.t_name)
     gr.start()

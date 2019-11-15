@@ -1,13 +1,19 @@
+'''
+Project: MQTT Traffic Analyzer
+Module: Packeda
+- Packet grabber; calls database operator
+'''
+
 from scapy.all import sniff
 
-import net_mqtt
+import p_database
 
 
 class Grabber:
     def __init__(self, db_name, t_name):
         self.db_name = db_name
         self.t_name = t_name
-        self.db = net_mqtt.Database(db_name, t_name)
+        self.db = p_database.Database(db_name, t_name)
 
     def start(self):
         while True:
