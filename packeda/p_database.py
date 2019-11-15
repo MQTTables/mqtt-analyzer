@@ -1,3 +1,9 @@
+'''
+Project: MQTT Traffic Analyzer
+Module: Packeda
+- Direct database operator
+'''
+
 import sys
 import json
 import os.path
@@ -6,7 +12,7 @@ import scapy.contrib.mqtt as mqtt
 from scapy.all import *
 from pprint import pprint
 
-from net_json import to_json, mqtt_type
+from p_json import to_json, mqtt_type
 
 class Database:
     def __init__(self, db_name, t_name):
