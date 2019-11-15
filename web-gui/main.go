@@ -17,11 +17,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, nil)
 }
 
-func loadInfo(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func loadPackage(w http.ResponseWriter, r *http.Request) {
+func loadAll(w http.ResponseWriter, r *http.Request) {
 
 }
 
@@ -45,10 +41,6 @@ func upload(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Server io error: %s", err)
 	}
 	http.Redirect(w, r, "/", 301)
-}
-
-func readParams(w http.ResponseWriter, r *http.Request) {
-
 }
 
 func main() {
