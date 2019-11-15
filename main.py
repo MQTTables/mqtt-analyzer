@@ -12,6 +12,7 @@ parser.add_argument('mode', metavar='M', type=str, help='operation mode (pcap / 
 parser.add_argument('f_name', metavar='F', type=str, help='.pcap file path (if any)')
 
 args = parser.parse_args()
+print(args)
 if args.mode == 'pcap':
     db = net_mqtt.Database(args.db_name, args.t_name)
     db.add_packets(rdpcap(args.f_name))

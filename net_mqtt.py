@@ -10,10 +10,13 @@ from net_json import to_json, mqtt_type
 
 class Database:
     def __init__(self, db_name, t_name):
-        conn = sqlite3.connect(db_name + '.db')
-        c = conn.cursor()
+        self.db_name = db_name
+        self.t_name = t_name
 
-        c.execute(f'''CREATE TABLE IF NOT EXISTS {t_name}(
+        self.conn = sqlite3.connect(db_name + '.db')
+        self.c = self.conn.cursor()
+
+        self.c.execute(f'''CREATE TABLE IF NOT EXISTS {t_name}(
                     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                     time_rel REAL NOT NULL,
                     ip_src TEXT NOT NULL,
@@ -22,7 +25,7 @@ class Database:
                     port_dst INTEGER NOT NULL,
                     mqtt_type TEXT);''')
 
-        c.execute(f'''CREATE TABLE IF NOT EXISTS {t_name}_data(
+        self.c.execute(f'''CREATE TABLE IF NOT EXISTS {t_name}_data(
                     id INTEGER PRIMARY KEY NOT NULL,
                     json TEXT);''')
 
@@ -47,11 +50,11 @@ class Database:
                     jrepr['tcp']['dport'],
                     mqtt_type(jrepr['mqtt_fixed_header']['type'])
                 ]
-                c.execute(f'''INSERT INTO {sys.argv[3]} (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
+                self.c.execute(f'''INSERT INTO {self.t_name} (time_rel, ip_src, ip_dst, port_src, port_dst, mqtt_type)
                             VALUES(?, ?, ?, ?, ?, ?)''', entry)
-                c.execute(f'''INSERT INTO {sys.argv[3]}_data (id, json)
+                self.c.execute(f'''INSERT INTO {self.t_name}_data (id, json)
                     VALUES(?, ?)''', [i, json.dumps(jrepr)])
 
-                conn.commit()
+                self.conn.commit()
                 i += 1
         return
