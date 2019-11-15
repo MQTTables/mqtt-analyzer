@@ -19,6 +19,19 @@ func main() {
 	}
 	defer db.Close()
 
+	_, err = db.Exec(`create table if not exists uploads (
+		file_id text,
+		file_name text
+	);`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = db.Exec("insert into uploads (file_id, file_name) values ('test', 'n1')")
+	if err != nil {
+		panic(err)
+	}
+
 	//Mux and handlers
 	mux := http.NewServeMux()
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
