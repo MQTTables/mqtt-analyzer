@@ -1,8 +1,9 @@
 package main
 
 import (
-	"database/sql"
 	"log"
+	"mqtt-analyzer/db"
+	"mqtt-analyzer/methods"
 	"net/http"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -10,16 +11,13 @@ import (
 
 //main - Main function
 func main() {
-	var err error
-	//Open db
-	db, err = sql.Open("sqlite3", "packets.db")
-	if err != nil {
+	//Init database
+	if err := db.Init("packets.db"); err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
 
 	//Create uploads table
-	_, err = db.Exec(`create table if not exists uploads (
+	_, err := db.DB.Exec(`create table if not exists uploads (
 		file_id text,
 		file_name text
 	);`)
@@ -30,11 +28,11 @@ func main() {
 	//Mux and handlers
 	mux := http.NewServeMux()
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	mux.HandleFunc("/", index)
-	mux.HandleFunc("/view", view)
-	mux.HandleFunc("/upload", upload)
-	mux.HandleFunc("/getpackets", getPackets)
-	mux.HandleFunc("/getfiles", getFiles)
+	mux.HandleFunc("/", methods.Index)
+	mux.HandleFunc("/view", methods.View)
+	mux.HandleFunc("/upload", methods.Upload)
+	mux.HandleFunc("/getpackets", methods.GetPackets)
+	mux.HandleFunc("/getfiles", methods.GetFiles)
 
 	//Web server configuration
 	serv := &http.Server{

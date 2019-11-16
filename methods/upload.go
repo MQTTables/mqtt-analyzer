@@ -3,6 +3,7 @@ package methods
 import (
 	"fmt"
 	"io"
+	"mqtt-analyzer/db"
 	"net/http"
 	"os"
 	"os/exec"
@@ -40,7 +41,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Server io error: %s", err)
 	}
 
-	_, err = db.Exec("insert into uploads (file_id, file_name) values ($1, $2)", fileID, fileName)
+	_, err = db.DB.Exec("insert into uploads (file_id, file_name) values ($1, $2)", fileID, fileName)
 	if err != nil {
 		panic(err)
 	}

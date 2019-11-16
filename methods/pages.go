@@ -16,7 +16,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "index", nil)
 }
 
-//Index - Handles view page
+//View - Handles view page
 func View(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseGlob("templates/*.html")
 	if err != nil {

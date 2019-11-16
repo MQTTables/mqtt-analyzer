@@ -2,12 +2,13 @@ package methods
 
 import (
 	"log"
+	"mqtt-analyzer/db"
 	"net/http"
 )
 
 //GetFiles - retrieve uploaded files data
 func GetFiles(w http.ResponseWriter, r *http.Request) {
-	rows, err := db.Query("select * from uploads")
+	rows, err := db.DB.Query("select * from uploads")
 	if err != nil {
 		log.Printf("Error querying db: %s", err)
 		return
