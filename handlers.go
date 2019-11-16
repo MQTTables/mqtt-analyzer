@@ -12,19 +12,21 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-type packet struct {
-	id         int
-	timeRel    float32
-	ipSrc      string
-	ipDest     string
-	portSrc    string
-	portDest   string
-	packetType string
+//Packet - basic struct of captured mqtt package
+type Packet struct {
+	ID         int
+	TimeRel    float32
+	IPSrc      string
+	IPDest     string
+	PortSrc    string
+	PortDest   string
+	PacketType string
 }
 
-type uploads struct {
-	fileID   string
-	fileName string
+//Upload - struct of uploaded data
+type Upload struct {
+	FileID   string
+	FileName string
 }
 
 //index - Handles main page
@@ -50,24 +52,16 @@ func view(w http.ResponseWriter, r *http.Request) {
 //loadAll - Load packets list from db
 func loadAll(w http.ResponseWriter, r *http.Request) {
 	row := db.QueryRow("select * from uploads")
-	upl := uploads{}
-	err := row.Scan(&upl.fileID, &upl.fileName)
+	upl := Upload{}
+	err := row.Scan(&upl.FileID, &upl.FileName)
 	if err != nil {
 		log.Printf("Error scanning db response: %s", err)
 		return
 	}
 
-	cmd := exec.Command("python3", "p-modules/p_main.py", "packets", upl.fileID, "pcap")
-	out, err := cmd.Output()
-	if err != nil {
-		fmt.Printf("Python module error: %s", err)
-		return
-	}
-	log.Println(string(out))
+	packets := []Packet{}
 
-	packets := []packet{}
-
-	rows, err := db.Query(fmt.Sprintf("select * from '%s'", upl.fileID))
+	rows, err := db.Query(fmt.Sprintf("select * from '%s'", upl.FileID))
 	if err != nil {
 		log.Printf("Error querying db: %s", err)
 		return
@@ -75,8 +69,8 @@ func loadAll(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 
 	for rows.Next() {
-		p := packet{}
-		err := rows.Scan(&p.id, &p.timeRel, &p.ipSrc, &p.ipDest, &p.portSrc, &p.portDest, &p.packetType)
+		p := Packet{}
+		err := rows.Scan(&p.ID, &p.TimeRel, &p.IPSrc, &p.IPDest, &p.PortSrc, &p.PortDest, &p.PacketType)
 		if err != nil {
 			log.Printf("Error scanning db response: %s", err)
 			return
@@ -119,6 +113,12 @@ func upload(w http.ResponseWriter, r *http.Request) {
 	_, err = db.Exec("insert into uploads (file_id, file_name) values ($1, $2)", fileID, fileName)
 	if err != nil {
 		panic(err)
+	}
+
+	cmd := exec.Command("python3", "p-modules/p_main.py", "packets", fileID, "pcap")
+	if err := cmd.Run(); err != nil {
+		fmt.Printf("Python module error: %s", err)
+		return
 	}
 
 	http.Redirect(w, r, "/view", 301)
