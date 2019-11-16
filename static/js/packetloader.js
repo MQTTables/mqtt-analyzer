@@ -1,5 +1,5 @@
 const request = new XMLHttpRequest();
-const url = "loadall";
+const url = "getpackets";
  
 request.open("GET", url, true); 
 request.addEventListener("readystatechange", () => {

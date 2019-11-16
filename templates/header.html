@@ -22,20 +22,20 @@
         <div class="d-flex flex-row p-1">
             <div class="btn-group mr-2">
                 <p class="filename title">filename.pcap</p>
-                <button type="button" class="btn btn-sm btn-outline-light rounded-left" data-toggle="modal" data-target="#exampleModal">Open file</button>
-                <button type="button" class="btn btn-sm btn-outline-light rounded-right" data-toggle="modal" data-target="#exampleModal">Sniff traffic</button>
+                <button type="button" class="btn btn-sm btn-outline-light rounded-left" data-toggle="modal" data-target="#uploadFile">Open file</button>
+                <button type="button" class="btn btn-sm btn-outline-light rounded-right">Sniff traffic</button>
             </div>
         </div>
     </div>
 </nav>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="uploadFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="/upload" method="post" enctype="multipart/form-data">
             <div class="modal-content lg bg-dark">
                 <div class="modal-header border-0">
-                    <h5 class="modal-title text-light" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title text-light" id="exampleModalLabel">Upload .pcap file</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

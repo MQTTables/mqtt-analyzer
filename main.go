@@ -8,8 +8,6 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var db *sql.DB
-
 //main - Main function
 func main() {
 	var err error
@@ -35,7 +33,8 @@ func main() {
 	mux.HandleFunc("/", index)
 	mux.HandleFunc("/view", view)
 	mux.HandleFunc("/upload", upload)
-	mux.HandleFunc("/loadall", loadAll)
+	mux.HandleFunc("/getpackets", getPackets)
+	mux.HandleFunc("/getfiles", getFiles)
 
 	//Web server configuration
 	serv := &http.Server{
