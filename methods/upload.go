@@ -11,14 +11,8 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-//Upload - struct of uploaded data
-type Upload struct {
-	FileID   string `json:"fileid"`
-	FileName string `json:"filename"`
-}
-
-//upload - File upload method
-func upload(w http.ResponseWriter, r *http.Request) {
+//Upload - File upload method
+func Upload(w http.ResponseWriter, r *http.Request) {
 	file, header, err := r.FormFile("file")
 	if err != nil {
 		fmt.Fprintf(w, "Upload error: %s", err)

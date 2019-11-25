@@ -30,7 +30,6 @@ func GetPackets(w http.ResponseWriter, r *http.Request) {
 	}
 	defer func() {
 		rows.Close()
-		http.Redirect(w, r, "/", 301)
 	}()
 
 	for rows.Next() {

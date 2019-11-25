@@ -9,10 +9,9 @@ var DB *sql.DB
 func Init(name string) error {
 	var err error
 	//Open db
-	db, err := sql.Open("sqlite3", name)
+	DB, err = sql.Open("sqlite3", name)
 	if err != nil {
 		return err
 	}
-	defer db.Close()
 	return nil
 }

@@ -15,6 +15,7 @@ func main() {
 	if err := db.Init("packets.db"); err != nil {
 		log.Fatal(err)
 	}
+	defer db.DB.Close()
 
 	//Create uploads table
 	_, err := db.DB.Exec(`create table if not exists uploads (
@@ -31,8 +32,8 @@ func main() {
 	mux.HandleFunc("/", methods.Index)
 	mux.HandleFunc("/view", methods.View)
 	mux.HandleFunc("/upload", methods.Upload)
-	mux.HandleFunc("/getpackets", methods.GetPackets)
-	mux.HandleFunc("/getfiles", methods.GetFiles)
+	mux.HandleFunc("/packets", methods.GetPackets)
+	mux.HandleFunc("/files", methods.GetFiles)
 
 	//Web server configuration
 	serv := &http.Server{

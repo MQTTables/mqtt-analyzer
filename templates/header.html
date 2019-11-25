@@ -21,8 +21,13 @@
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="d-flex flex-row p-1">
             <div class="btn-group mr-2">
-                <p class="filename title">filename.pcap</p>
-                <button type="button" class="btn btn-sm btn-outline-light rounded-left" data-toggle="modal" data-target="#uploadFile">Open file</button>
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle rounded-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        filename.pcap
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="filesRoot"></div>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-light rounded-0" data-toggle="modal" data-target="#uploadFile">Open file</button>
                 <button type="button" class="btn btn-sm btn-outline-light rounded-right">Sniff traffic</button>
             </div>
         </div>
